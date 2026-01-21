@@ -9,7 +9,7 @@ using IOPath = System.IO.Path;
 
 namespace Microsoft.Unity.VisualStudio.Editor
 {
-	public interface IVisualStudioInstallation
+	internal interface IVisualStudioInstallation
 	{
 		string Path { get; }
 		bool SupportsAnalyzers { get; }
@@ -17,11 +17,11 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		string[] GetAnalyzers();
 		CodeEditor.Installation ToCodeEditorInstallation();
 		bool Open(string path, int line, int column, string solutionPath);
-		Unity.CodeEditor.IGenerator ProjectGenerator { get; }
+		IGenerator ProjectGenerator { get; }
 		void CreateExtraFiles(string projectDirectory);
 	}
 
-	public abstract class VisualStudioInstallation : IVisualStudioInstallation
+	internal abstract class VisualStudioInstallation : IVisualStudioInstallation
 	{
 		public string Name { get; set; }
 		public string Path { get; set; }
@@ -31,7 +31,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		public abstract bool SupportsAnalyzers { get; }
 		public abstract Version LatestLanguageVersionSupported { get; }
 		public abstract string[] GetAnalyzers();
-		public abstract Unity.CodeEditor.IGenerator ProjectGenerator { get; }
+		public abstract IGenerator ProjectGenerator { get; }
 		public abstract void CreateExtraFiles(string projectDirectory);
 		public abstract bool Open(string path, int line, int column, string solutionPath);
 
