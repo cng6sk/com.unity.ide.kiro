@@ -132,12 +132,12 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			GUILayout.Label($"<size=10><color=grey>{package.displayName} v{package.version} enabled</color></size>", style);
 			GUILayout.EndHorizontal();
 
-			if (installation is VisualStudioCursorInstallation)
+			if (installation is VisualStudioKiroInstallation)
 			{
-				var reuseWindow = EditorPrefs.GetBool(VisualStudioCursorInstallation.ReuseExistingWindowKey, false);
-				var newReuseWindow = EditorGUILayout.Toggle(new GUIContent("Reuse existing Cursor window", "When enabled, opens files in an existing Cursor window if found. When disabled, always opens a new window."), reuseWindow);
+				var reuseWindow = EditorPrefs.GetBool(VisualStudioKiroInstallation.ReuseExistingWindowKey, false);
+				var newReuseWindow = EditorGUILayout.Toggle(new GUIContent("Reuse existing Kiro window", "When enabled, opens files in an existing Kiro window if found. When disabled, always opens a new window."), reuseWindow);
 				if (newReuseWindow != reuseWindow)
-					EditorPrefs.SetBool(VisualStudioCursorInstallation.ReuseExistingWindowKey, newReuseWindow);
+					EditorPrefs.SetBool(VisualStudioKiroInstallation.ReuseExistingWindowKey, newReuseWindow);
 				
 				EditorGUILayout.Space();
 			}
