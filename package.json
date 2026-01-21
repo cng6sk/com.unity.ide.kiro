@@ -1,14 +1,14 @@
 {
-  "name": "com.kiro.ide.integration",
+  "name": "com.unity.ide.kiro",
   "displayName": "Kiro Editor",
   "description": "Kiro editor integration for supporting Kiro as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "unity": "2019.4",
   "unityRelease": "25f1",
   "dependencies": {
     "com.unity.test-framework": "1.1.9"
   },
   "_upm": {
-    "changelog": "Integration:\n\n- Fixed access level issues for VisualStudioInstallation and related classes\n- Fixed IGenerator type conflicts by using fully qualified names\n- Fixed JSONNode access level issues\n- Changed internal classes to public to resolve CS0122 errors"
+    "changelog": "Initial release of Kiro IDE integration package"
   }
 }
