@@ -17,10 +17,10 @@ using Debug = UnityEngine.Debug;
 
 namespace Microsoft.Unity.VisualStudio.Editor
 {
-	internal class VisualStudioCursorInstallation : VisualStudioInstallation
+	internal class VisualStudioKiroInstallation : VisualStudioInstallation
 	{
 		private static readonly IGenerator _generator = new SdkStyleProjectGeneration();
-		internal const string ReuseExistingWindowKey = "cursor_reuse_existing_window";
+		internal const string ReuseExistingWindowKey = "kiro_reuse_existing_window";
 
 		public override bool SupportsAnalyzers
 		{
@@ -71,11 +71,11 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		private static bool IsCandidateForDiscovery(string path)
 		{
 #if UNITY_EDITOR_OSX
-			return Directory.Exists(path) && Regex.IsMatch(path, ".*Cursor.*.app$", RegexOptions.IgnoreCase);
+			return Directory.Exists(path) && Regex.IsMatch(path, ".*Kiro.*.app$", RegexOptions.IgnoreCase);
 #elif UNITY_EDITOR_WIN
-			return File.Exists(path) && Regex.IsMatch(path, ".*Cursor.*.exe$", RegexOptions.IgnoreCase);
+			return File.Exists(path) && Regex.IsMatch(path, ".*Kiro.*.exe$", RegexOptions.IgnoreCase);
 #else
-			return File.Exists(path) && path.EndsWith("cursor", StringComparison.OrdinalIgnoreCase);
+			return File.Exists(path) && path.EndsWith("kiro", StringComparison.OrdinalIgnoreCase);
 #endif
 		}
 
@@ -133,10 +133,10 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			}
 
 			isPrerelease = isPrerelease || editorPath.ToLower().Contains("insider");
-			installation = new VisualStudioCursorInstallation()
+			installation = new VisualStudioKiroInstallation()
 			{
 				IsPrerelease = isPrerelease,
-				Name = "Cursor" + (isPrerelease ? " - Insider" : string.Empty) + (version != null ? $" [{version.ToString(3)}]" : string.Empty),
+				Name = "Kiro" + (isPrerelease ? " - Insider" : string.Empty) + (version != null ? $" [{version.ToString(3)}]" : string.Empty),
 				Path = editorPath,
 				Version = version ?? new Version()
 			};
@@ -153,16 +153,16 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			var programFiles = IOPath.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
 
 			foreach (var basePath in new[] { localAppPath, programFiles }) {
-				candidates.Add(IOPath.Combine(basePath, "cursor", "cursor.exe"));
+				candidates.Add(IOPath.Combine(basePath, "kiro", "kiro.exe"));
 			}
 #elif UNITY_EDITOR_OSX
 			var appPath = IOPath.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
-			candidates.AddRange(Directory.EnumerateDirectories(appPath, "Cursor*.app"));
+			candidates.AddRange(Directory.EnumerateDirectories(appPath, "Kiro*.app"));
 #elif UNITY_EDITOR_LINUX
 			// Well known locations
-			candidates.Add("/usr/bin/cursor");
-			candidates.Add("/bin/cursor");
-			candidates.Add("/usr/local/bin/cursor");
+			candidates.Add("/usr/bin/kiro");
+			candidates.Add("/bin/kiro");
+			candidates.Add("/usr/local/bin/kiro");
 
 			// Preference ordered base directories relative to which desktop files should be searched
 			candidates.AddRange(GetXdgCandidates());
@@ -500,7 +500,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			}
 		}
 
-		private Process FindRunningCursorWithSolution(string solutionPath)
+		private Process FindRunningKiroWithSolution(string solutionPath)
 		{
 			var normalizedTargetPath = solutionPath.Replace('\\', '/').TrimEnd('/').ToLowerInvariant();
 
@@ -518,13 +518,13 @@ namespace Microsoft.Unity.VisualStudio.Editor
 
 			// Get process name list based on different operating systems
 #if UNITY_EDITOR_OSX
-			processes.AddRange(Process.GetProcessesByName("Cursor"));
-			processes.AddRange(Process.GetProcessesByName("Cursor Helper"));
+			processes.AddRange(Process.GetProcessesByName("Kiro"));
+			processes.AddRange(Process.GetProcessesByName("Kiro Helper"));
 #elif UNITY_EDITOR_LINUX
-			processes.AddRange(Process.GetProcessesByName("cursor"));
-			processes.AddRange(Process.GetProcessesByName("Cursor"));
+			processes.AddRange(Process.GetProcessesByName("kiro"));
+			processes.AddRange(Process.GetProcessesByName("Kiro"));
 #else
-			processes.AddRange(Process.GetProcessesByName("cursor"));
+			processes.AddRange(Process.GetProcessesByName("kiro"));
 #endif
 
 			foreach (var process in processes)
@@ -559,7 +559,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 				}
 				catch (Exception ex)
 				{
-					Debug.LogError($"[Cursor] Error checking process: {ex}");
+					Debug.LogError($"[Kiro] Error checking process: {ex}");
 					continue;
 				}
 			}
@@ -589,7 +589,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 
 			if (EditorPrefs.GetBool(ReuseExistingWindowKey, false))
 			{
-				var existingProcess = FindRunningCursorWithSolution(directory);
+				var existingProcess = FindRunningKiroWithSolution(directory);
 				if (existingProcess != null)
 				{
 					try
@@ -603,7 +603,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 					}
 					catch (Exception ex)
 					{
-						Debug.LogError($"[Cursor] Error using existing instance: {ex}");
+						Debug.LogError($"[Kiro] Error using existing instance: {ex}");
 					}
 				}
 			}
