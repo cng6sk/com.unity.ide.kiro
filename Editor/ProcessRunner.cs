@@ -128,11 +128,11 @@ namespace Microsoft.Unity.VisualStudio.Editor
 				string kiroStoragePath;
 
 #if UNITY_EDITOR_OSX
-				kiroStoragePath = Path.Combine(userProfile, "Library", "Application Support", "Kiro", "User", "workspaceStorage");
+				kiroStoragePath = Path.Combine(userProfile, "Library", "Application Support", "kiro", "User", "workspaceStorage");
 #elif UNITY_EDITOR_LINUX
 				kiroStoragePath = Path.Combine(userProfile, ".config", "Kiro", "User", "workspaceStorage");
 #else
-				kiroStoragePath = Path.Combine(userProfile, "AppData", "Roaming", "Kiro", "User", "workspaceStorage");
+				kiroStoragePath = Path.Combine(userProfile, "AppData", "Roaming", "kiro", "User", "workspaceStorage");
 #endif
 				
 				if (Directory.Exists(kiroStoragePath))

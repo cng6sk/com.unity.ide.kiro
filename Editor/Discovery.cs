@@ -15,6 +15,8 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		{
 			foreach (var installation in VisualStudioKiroInstallation.GetVisualStudioInstallations())
 				yield return installation;
+			foreach (var installation in VisualStudioCodiumInstallation.GetVisualStudioInstallations())
+				yield return installation;
 		}
 
 		public static bool TryDiscoverInstallation(string editorPath, out IVisualStudioInstallation installation)
@@ -22,6 +24,8 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			try
 			{
 				if (VisualStudioKiroInstallation.TryDiscoverInstallation(editorPath, out installation))
+					return true;
+				if (VisualStudioCodiumInstallation.TryDiscoverInstallation(editorPath, out installation))
 					return true;
 			}
 			catch (IOException)
@@ -35,6 +39,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		public static void Initialize()
 		{
             VisualStudioKiroInstallation.Initialize();
+            VisualStudioCodiumInstallation.Initialize();
 		}
 	}
 }

@@ -42,7 +42,7 @@ using System.Text;
 
 namespace SimpleJSON
 {
-    public enum JSONNodeType
+    internal enum JSONNodeType
     {
         Array = 1,
         Object = 2,
@@ -53,16 +53,16 @@ namespace SimpleJSON
         None = 7,
         Custom = 0xFF,
     }
-    public enum JSONTextMode
+    internal enum JSONTextMode
     {
         Compact,
         Indent
     }
 
-    public abstract partial class JSONNode
+    internal abstract partial class JSONNode
     {
         #region Enumerators
-        public struct Enumerator
+        internal struct Enumerator
         {
             private enum Type { None, Array, Object }
             private Type type;
@@ -101,7 +101,7 @@ namespace SimpleJSON
                 return false;
             }
         }
-        public struct ValueEnumerator
+        internal struct ValueEnumerator
         {
             private Enumerator m_Enumerator;
             public ValueEnumerator(List<JSONNode>.Enumerator aArrayEnum) : this(new Enumerator(aArrayEnum)) { }
@@ -111,7 +111,7 @@ namespace SimpleJSON
             public bool MoveNext() { return m_Enumerator.MoveNext(); }
             public ValueEnumerator GetEnumerator() { return this; }
         }
-        public struct KeyEnumerator
+        internal struct KeyEnumerator
         {
             private Enumerator m_Enumerator;
             public KeyEnumerator(List<JSONNode>.Enumerator aArrayEnum) : this(new Enumerator(aArrayEnum)) { }
@@ -122,7 +122,7 @@ namespace SimpleJSON
             public KeyEnumerator GetEnumerator() { return this; }
         }
 
-        public class LinqEnumerator : IEnumerator<KeyValuePair<string, JSONNode>>, IEnumerable<KeyValuePair<string, JSONNode>>
+        internal class LinqEnumerator : IEnumerator<KeyValuePair<string, JSONNode>>, IEnumerable<KeyValuePair<string, JSONNode>>
         {
             private JSONNode m_Node;
             private Enumerator m_Enumerator;
@@ -717,7 +717,7 @@ namespace SimpleJSON
     }
     // End of JSONNode
 
-    public partial class JSONArray : JSONNode
+    internal partial class JSONArray : JSONNode
     {
         private List<JSONNode> m_List = new List<JSONNode>();
         private bool inline = false;
@@ -841,7 +841,7 @@ namespace SimpleJSON
     }
     // End of JSONArray
 
-    public partial class JSONObject : JSONNode
+    internal partial class JSONObject : JSONNode
     {
         private Dictionary<string, JSONNode> m_Dict = new Dictionary<string, JSONNode>();
 
@@ -1017,7 +1017,7 @@ namespace SimpleJSON
     }
     // End of JSONObject
 
-    public partial class JSONString : JSONNode
+    internal partial class JSONString : JSONNode
     {
         private string m_Data;
 
@@ -1072,7 +1072,7 @@ namespace SimpleJSON
     }
     // End of JSONString
 
-    public partial class JSONNumber : JSONNode
+    internal partial class JSONNumber : JSONNode
     {
         private double m_Data;
 
@@ -1159,7 +1159,7 @@ namespace SimpleJSON
     }
     // End of JSONNumber
 
-    public partial class JSONBool : JSONNode
+    internal partial class JSONBool : JSONNode
     {
         private bool m_Data;
 
@@ -1221,7 +1221,7 @@ namespace SimpleJSON
     }
     // End of JSONBool
 
-    public partial class JSONNull : JSONNode
+    internal partial class JSONNull : JSONNode
     {
         static JSONNull m_StaticInstance = new JSONNull();
         public static bool reuseSameInstance = true;
@@ -1271,7 +1271,7 @@ namespace SimpleJSON
     }
     // End of JSONNull
 
-    public partial class JSONLazyCreator : JSONNode
+    internal partial class JSONLazyCreator : JSONNode
     {
         private JSONNode m_Node = null;
         private string m_Key = null;
