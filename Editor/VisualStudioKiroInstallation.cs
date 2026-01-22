@@ -60,7 +60,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			return GetAnalyzers(vstuPath);
 		}
 
-		public override Unity.CodeEditor.IGenerator ProjectGenerator
+		public override IGenerator ProjectGenerator
 		{
 			get
 			{
