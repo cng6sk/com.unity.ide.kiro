@@ -17,9 +17,9 @@ using Debug = UnityEngine.Debug;
 
 namespace Microsoft.Unity.VisualStudio.Editor
 {
-	public class VisualStudioKiroInstallation : VisualStudioInstallation
+	internal class VisualStudioKiroInstallation : VisualStudioInstallation
 	{
-		private static readonly Unity.CodeEditor.IGenerator _generator = new SdkStyleProjectGeneration();
+		private static readonly IGenerator _generator = new SdkStyleProjectGeneration();
 		internal const string ReuseExistingWindowKey = "kiro_reuse_existing_window";
 
 		public override bool SupportsAnalyzers

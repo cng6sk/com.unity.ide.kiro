@@ -17,7 +17,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Microsoft.Unity.VisualStudio.Editor
 {
-	internal class VisualStudioKiroInstallation : VisualStudioInstallation
+	internal class VisualStudioKiroInstallation_Legacy : VisualStudioInstallation
 	{
 		private static readonly IGenerator _generator = new SdkStyleProjectGeneration();
 		internal const string ReuseExistingWindowKey = "kiro_reuse_existing_window";
@@ -133,7 +133,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			}
 
 			isPrerelease = isPrerelease || editorPath.ToLower().Contains("insider");
-			installation = new VisualStudioKiroInstallation()
+			installation = new VisualStudioKiroInstallation_Legacy()
 			{
 				IsPrerelease = isPrerelease,
 				Name = "Kiro" + (isPrerelease ? " - Insider" : string.Empty) + (version != null ? $" [{version.ToString(3)}]" : string.Empty),
